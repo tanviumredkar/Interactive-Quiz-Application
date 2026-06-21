@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuizMaster 🎯</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <div class="logo">🎯 QuizMaster</div>
+        <div class="links" id="lnk">
+            <a onclick="go('home')">Home</a>
+            <a onclick="go('lb')">Leaderboard</a>
+            <a onclick="if(rv.length)go('rev')">Review</a>
+            <button class="tog" onclick="thm()" title="Toggle theme">🌙</button>
+        </div>
+        <div class="hbg" id="hbg" onclick="document.getElementById('lnk').classList.toggle('open')">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- HOME -->
+    <section class="sc on" id="home">
+        <div class="gl hcard">
+            <div class="hlogo">🎯</div>
+            <h1 class="htitle">QuizMaster</h1>
+            <p class="hsub">Test your knowledge across 6 exciting categories. Beat the timer, climb the leaderboard!</p>
+            <div class="srow">
+                <div class="chip"><span>6</span>Categories</div>
+                <div class="chip"><span>3</span>Difficulty Levels</div>
+                <div class="chip"><span>⏱</span>Timed Questions</div>
+            </div>
+            <button class="btn bp" onclick="go('cat')" style="width:100%">🚀 Start Quiz</button>
+        </div>
+    </section>
+
+    <!-- CATEGORY -->
+    <section class="sc" id="cat">
+        <h2 class="stitle">Choose a Category</h2>
+        <p class="ssub">Select a topic to be quizzed on</p>
+        <div class="cgrid" id="cgrid"></div><br>
+        <button class="btn bp" id="cnxt" onclick="go('diff')" style="display:none;margin-top:1.5rem">Continue →</button>
+    </section>
+
+    <!-- DIFFICULTY -->
+    <section class="sc" id="diff">
+        <h2 class="stitle">Select Difficulty</h2>
+        <p class="ssub">How tough do you want it?</p>
+        <div class="dcards">
+            <div class="dc e" onclick="sd('easy',this)">
+                <div class="di">🌱</div>
+                <div class="dl" style="color:#10b981">Easy</div>
+                <div class="dd">30 sec/question<br>Great for beginners</div>
+            </div>
+            <div class="dc m" onclick="sd('medium',this)">
+                <div class="di">🔥</div>
+                <div class="dl" style="color:#f59e0b">Medium</div>
+                <div class="dd">20 sec/question<br>A bit of a challenge</div>
+            </div>
+            <div class="dc h" onclick="sd('hard',this)">
+                <div class="di">💀</div>
+                <div class="dl" style="color:#ef4444">Hard</div>
+                <div class="dd">10 sec/question<br>For the brave</div>
+            </div>
+        </div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center">
+            <button class="btn bo" onclick="go('cat')">← Back</button>
+            <button class="btn bp" id="dnxt" onclick="startQ()" style="display:none">Let's Go! 🎉</button>
+        </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="sc" id="quiz">
+        <div class="qcon">
+            <div class="qhdr">
+                <div class="qmeta">
+                    <span class="bdg" id="cb"></span>
+                    <span class="bdg" id="db"></span>
+                </div>
+                <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
+                    <span class="bdg sbdg" id="sb">Score: 0</span>
+                    <div class="twrap"><span>⏱</span><span class="ttxt" id="tt">30</span></div>
+                </div>
+            </div>
+            <div class="pwrap">
+                <div class="pinfo"><span id="pl">Question 1 of 10</span><span id="pp">0%</span></div>
+                <div class="pbar">
+                    <div class="pfill" id="pf" style="width:0%"></div>
+                </div>
+            </div>
+            <div class="gl qcard">
+                <div class="qnum" id="qn">Question 1</div>
+                <div class="qtxt" id="qt"></div>
+            </div>
+            <div class="ogrid" id="og"></div>
+            <div class="fb" id="fb"></div>
+            <div class="qftr">
+                <button class="btn bp" id="nxt" onclick="nxQ()" style="display:none">Next →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="sc" id="res">
+        <div class="gl rcard">
+            <div class="rtroph" id="rt">🏆</div>
+            <h2 class="rtitle">Quiz Complete!</h2>
+            <p class="rmsg" id="rm"></p>
+            <div class="scirc" id="sc">
+                <div class="scin">
+                    <div class="spct" id="sp">0%</div>
+                    <div class="slbl">Score</div>
+                </div>
+            </div>
+            <div class="sgrid">
+                <div class="scard">
+                    <div class="v" id="r1">0</div>
+                    <div class="l">Total Questions</div>
+                </div>
+                <div class="scard">
+                    <div class="v" id="r2">0</div>
+                    <div class="l">Points Earned</div>
+                </div>
+                <div class="scard ok">
+                    <div class="v" id="r3">0</div>
+                    <div class="l">✅ Correct</div>
+                </div>
+                <div class="scard ng">
+                    <div class="v" id="r4">0</div>
+                    <div class="l">❌ Wrong</div>
+                </div>
+            </div>
+            <div class="rbtns">
+                <button class="btn bo" onclick="go('rev')">📋 Review</button>
+                <button class="btn bp" onclick="go('home')">🏠 Home</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEADERBOARD -->
+    <section class="sc" id="lb">
+        <h2 class="stitle">🏆 Leaderboard</h2>
+        <p class="ssub">Top scores stored in your browser</p>
+        <div class="gl lcard">
+            <ul class="llist" id="ll"></ul>
+            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+                <button class="btn bo" onclick="clrLB()">🗑 Clear</button>
+                <button class="btn bp" onclick="go('home')">🏠 Home</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEW -->
+    <section class="sc" id="rev">
+        <h2 class="stitle" style="margin-bottom:.3rem">📋 Quiz Review</h2>
+        <p class="ssub">See where you went right and wrong</p>
+        <div class="revcon" id="rc"></div>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1rem">
+            <button class="btn bo" onclick="go('res')">← Results</button>
+            <button class="btn bp" onclick="go('home')">🏠 Home</button>
+        </div>
+    </section>
+
+    <footer>
+        <span>© 2026 <span class="brand">QuizMaster</span></span>
+        <span>Built with ❤️ using HTML, CSS &amp; JS</span>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
